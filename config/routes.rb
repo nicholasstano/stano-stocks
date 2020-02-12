@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   #path for users
+  get 'auth/create'
+  post '/login', to: 'auth#login'
+  
   namespace :v1, defaults: {format: 'json'} do 
     get 'users', to: 'users#index'
   end

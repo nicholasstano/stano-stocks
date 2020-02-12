@@ -2,9 +2,11 @@ import React, { Component } from 'react'
 
 export class Portfolio extends Component {
     render() {
+        console.log(this.props)
         return (
             <div>
                 <h1>Portfolio</h1>
+                <p>Welcome {this.props.user.name}. Your current balance is {this.props.user.account_balance}</p>
             </div>
         )
     }

@@ -1,45 +1,37 @@
 import React from "react"
-import PropTypes from "prop-types"
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import LoginContainer from './LoginContainer'
-import RegisterContainer from './RegisterContainer'
-import Portfolio from './Portfolio'
-import Transactions from './Transactions'
+import HomeContainer from './HomeContainer'
+import UserContainer from './UserContainer'
 
 class App extends React.Component {
+
+  state = { user: null }
+
+  setUser = user => {
+    this.setState({ user: user })
+  }
+
   render() {
     return (
       <div>
         <BrowserRouter>
           <Switch>
-            <Route path='/login' render={() => {
-              return (
-                <div>
-                  <LoginContainer />
-                </div>
-              )
-            }} />
-            <Route path='/register' render={() => {
-              return (
-                <div>
-                  <RegisterContainer />
-                </div>
-              )
-            }} />
-            <Route path='/portfolio' render={() => {
-              return (
-                <div>
-                  <Portfolio />
-                </div>
-              )
-            }} />
-            <Route path='/transactions' render={() => {
-              return (
-                <div>
-                  <Transactions />
-                </div>
-              )
-            }} />
+            {this.state.user == null ?
+              <Route path='/' render={() => {
+                return (
+                  <div>
+                    <HomeContainer user={this.state.user} setUser={this.setUser} />
+                  </div>
+                )
+              }} /> :
+              <Route path='/myportfolio' render={() => {
+                return (
+                  <div>
+                    <UserContainer user={this.state.user} setUser={this.setUser} />
+                  </div>
+                )
+              }} />
+            }
           </Switch>
         </BrowserRouter>
       </div>

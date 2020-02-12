@@ -5,6 +5,7 @@ export class Transactions extends Component {
         return (
             <div>
                 <h1>Transactions</h1>
+                <p>Welcome {this.props.user.name}. Your current balance is {this.props.user.account_balance}</p>
             </div>
         )
     }
