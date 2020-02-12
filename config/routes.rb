@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  #path for users
+  namespace :v1, defaults: {format: 'json'} do 
+    get 'users', to: 'users#index'
+  end
   
   get '*page', to: 'static#index', constraints: ->(req) do
     !req.xhr? && req.format.html?
