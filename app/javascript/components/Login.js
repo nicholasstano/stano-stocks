@@ -19,9 +19,14 @@ export class Login extends Component {
         })
             .then(response => response.json())
             .then(data => {
-                localStorage.setItem('userId', data.id)
-                this.props.setUser(data)
-                this.props.history.push('/myportfolio')
+                if (data.errors) {
+                    alert(data.errors)
+                    this.props.setUser(null)
+                } else {
+                    localStorage.setItem('token', data.token)
+                    this.props.setUser(data.user)
+                    this.props.history.push('/myportfolio')
+                }
             })
 
         this.setState({
@@ -32,17 +37,15 @@ export class Login extends Component {
 
     render() {
         return (
-            <div>
-                <div className="login">
-                    <h1>Login</h1>
-                    <form onSubmit={this.handleSubmit}>
-                        <label>Username: </label>
-                        <input type="text" name="email" placeholder="email" value={this.state.email} onChange={this.handleChange} />
-                        <label>Password: </label>
-                        <input type="password" name="password" placeholder="password" value={this.state.password} onChange={this.handleChange} />
-                        <button>login</button>
-                    </form>
-                </div>
+            <div className="login">
+                <h1>Login</h1>
+                <form onSubmit={this.handleSubmit}>
+                    <label>Email: </label>
+                    <input type="text" name="email" placeholder="email" value={this.state.email} onChange={this.handleChange} />
+                    <label>Password: </label>
+                    <input type="password" name="password" placeholder="password" value={this.state.password} onChange={this.handleChange} />
+                    <button>login</button>
+                </form>
             </div>
         )
     }

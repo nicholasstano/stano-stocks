@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
   #path for users
-  get 'auth/create'
   post '/login', to: 'auth#login'
+  get '/autologin', to: 'auth#autologin'
   
   namespace :v1, defaults: {format: 'json'} do 
-    get 'users', to: 'users#index'
+    post '/signup', to: 'users#create'
+    resources :users
   end
   
   get '*page', to: 'static#index', constraints: ->(req) do

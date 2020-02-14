@@ -1,23 +1,17 @@
 class V1::UsersController < ApplicationController
+    skip_before_action :verify_authenticity_token
+
     def index
         users = User.all 
         render json: users
     end
 
     def create
-        user = User.new(user_params)
+        user = User.new(email: params[:email], password: params[:password], name: params[:name], account_balance: 5000)
         if user.save
-            user.account_balance = 5000.00
-          render json: user
+            render json: {user: user, token: JWT.encode({userId: user.id}, 'secret')}
         else
           render json: {errors: user.errors.full_messages}
         end
     end
-
-    private 
-
-    def user_params 
-        params.require(:user).permit(:id, :email, :password, :name, :account_balance)
-    end
-
 end

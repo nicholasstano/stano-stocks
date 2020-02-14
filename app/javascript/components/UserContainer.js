@@ -3,13 +3,24 @@ import Portfolio from './Portfolio'
 import Transactions from './Transactions'
 
 export class UserContainer extends Component {
+
+    state = { portfolio: true }
+
+
+
     render() {
         return (
             <div>
                 <h1>User Container</h1>
-                <Portfolio user={this.props.user} setUser={this.props.setUser} />
-                <Transactions user={this.props.user} setUser={this.props.setUser} />
-            </div>
+                <p onClick={() => this.props.setUser(null)}>LOG OUT</p>
+                <p onClick={() => this.setState({ portfolio: true })}>Portfolio</p>
+                <p>|</p>
+                <p onClick={() => this.setState({ portfolio: false })}>Transactions</p>
+                {
+                    this.state.portfolio ? <Portfolio user={this.props.user} /> :
+                        <Transactions user={this.props.user} />
+                }
+            </div >
         )
     }
 }
