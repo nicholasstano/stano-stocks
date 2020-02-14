@@ -19,7 +19,6 @@ export class RegisterContainer extends Component {
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data)
                 if (data.errors) {
                     alert(data.errors)
                     this.props.setUser(null)
