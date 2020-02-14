@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   namespace :v1, defaults: {format: 'json'} do 
     post '/signup', to: 'users#create'
     resources :users
+    resources :transactions
   end
   
   get '*page', to: 'static#index', constraints: ->(req) do

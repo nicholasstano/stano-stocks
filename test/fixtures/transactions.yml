@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ticker: MyString
+  qty: 1
+  user_id: 1
+
+two:
+  ticker: MyString
+  qty: 1
+  user_id: 1
