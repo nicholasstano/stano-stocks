@@ -35,6 +35,8 @@ gem 'rack-cors'
 gem 'jwt'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
+gem 'active_model_serializers', '~> 0.10.0'
+
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

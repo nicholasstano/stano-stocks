@@ -1,34 +1,49 @@
 import React, { Component } from 'react'
+import { url } from './config'
 
 export class Portfolio extends Component {
 
+    state = { ticker: "", qty: "" }
+
+    handleChange = e => this.setState({ [e.target.name]: e.target.value })
+
     handleSubmit = e => {
         e.preventDefault()
-        fetch(`${url}/v1/transactions`, {
-            method: 'POST',
-            body: JSON.stringify(this.state),
-            headers: {
-                'content-type': 'application/json',
-                'accept': 'application/json'
-            }
-        })
-            .then(response => response.json())
+        fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=MSFT&interval=5min&apikey=demo`)
+            .then(res => res.json())
             .then(data => {
-
+                let lastRefreshed = data['Meta Data']['3. Last Refreshed']
+                let currentClosePrice = data['Time Series (5min)'][lastRefreshed]['4. close']
+                fetch(`${url}/v1/transactions`, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        user_id: this.props.user.id,
+                        ticker: this.state.ticker,
+                        qty: this.state.qty,
+                        user_close: currentClosePrice,
+                        current_close: currentClosePrice
+                    }),
+                    headers: {
+                        'content-type': 'application/json',
+                        'accept': 'application/json'
+                    }
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.errors) {
+                            alert(data.errors)
+                        } else {
+                            console.log("portfolio data", data)
+                        }
+                    })
             })
-
-
-        this.setState({
-            email: '',
-            password: ''
-        })
     }
 
     render() {
         return (
             <div>
                 <h1>Portfolio</h1>
-                <p>Welcome {this.props.user.name}. Your current balance is {this.props.user.account_balance}</p>
+                <p>Welcome {this.props.user.user_info.name}. Cash: {this.props.user.user_info.account_balance}</p>
                 <div className="login">
                     <form onSubmit={this.handleSubmit}>
                         <label>Ticker Symbol: </label>

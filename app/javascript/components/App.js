@@ -26,6 +26,7 @@ class App extends React.Component {
       })
         .then(response => response.json())
         .then(data => {
+          console.log("APP DATA", data)
           this.setUser(data)
           this.props.history.push('/myportfolio')
         })
@@ -33,6 +34,7 @@ class App extends React.Component {
   }
 
   render() {
+    console.log("APPSTATE USER", this.state.user)
     return (
       <div>
         <Switch>
