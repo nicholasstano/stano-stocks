@@ -8,8 +8,6 @@ export class UserContainer extends Component {
 
     // https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=GOOG&interval=5min&apikey=URO5UT82IEAW1NHV
 
-
-
     render() {
         return (
             <div>
@@ -19,7 +17,7 @@ export class UserContainer extends Component {
                 <p>|</p>
                 <p onClick={() => this.setState({ portfolio: false })}>Transactions</p>
                 {
-                    this.state.portfolio ? <Portfolio user={this.props.user} /> :
+                    this.state.portfolio ? <Portfolio user={this.props.user} userAccountBalance={this.props.userAccountBalance} updateAccountBalance={this.props.updateAccountBalance} /> :
                         <Transactions user={this.props.user} />
                 }
             </div >

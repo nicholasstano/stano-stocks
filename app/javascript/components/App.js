@@ -6,16 +6,23 @@ import { url } from './config'
 
 class App extends React.Component {
 
-  state = { user: null }
+  state = {
+    user: null,
+    userAccountBalance: null,
+  }
 
   setUser = user => {
     if (user == null) {
       localStorage.removeItem('token')
+      this.setState({ user: null, userAccountBalance: null })
     }
-    this.setState({ user: user })
+    else {
+      this.setState({ user: user, userAccountBalance: user.user_info.account_balance })
+    }
   }
 
   componentDidMount() {
+    //autologin
     let token = localStorage.getItem('token')
     if (token) {
       fetch(`${url}/autologin`, {
@@ -33,8 +40,22 @@ class App extends React.Component {
     }
   }
 
+  updateAccountBalance = (quantity, price) => {
+    console.log(quantity, price)
+    const stockAddTotalPrice = quantity * price
+    this.setState({ userAccountBalance: this.state.userAccountBalance - stockAddTotalPrice })
+  }
+
+  // updateGameCard = (data) => {
+  //   const newGameWeek = data.game
+  //   let updatedWeek = this.state.selectedWeek.week_games.map(weekGame => weekGame.game_id === newGameWeek.game_id ? newGameWeek : weekGame)
+  //   const newUpdatedWeek = { ...this.state.selectedWeek, week_games: updatedWeek }
+  //   const newWeeklyGames = this.state.weeklyGames.map(wg => wg.id === this.state.selectedWeek.id ? newUpdatedWeek : wg)
+  //   this.setState({ selectedWeek: newUpdatedWeek, weeklyGames: newWeeklyGames })
+  // }
+
   render() {
-    console.log("APPSTATE USER", this.state.user)
+    console.log("APPSTATE", this.state)
     return (
       <div>
         <Switch>
@@ -49,7 +70,7 @@ class App extends React.Component {
             <Route path='/myportfolio' render={() => {
               return (
                 <div>
-                  <UserContainer user={this.state.user} setUser={this.setUser} />
+                  <UserContainer user={this.state.user} setUser={this.setUser} userAccountBalance={this.state.userAccountBalance} updateAccountBalance={this.updateAccountBalance} />
                 </div>
               )
             }} />

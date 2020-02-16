@@ -3,7 +3,7 @@ import { url } from './config'
 
 export class Portfolio extends Component {
 
-    state = { ticker: "", qty: "" }
+    state = { ticker: "", qty: 0 }
 
     handleChange = e => this.setState({ [e.target.name]: e.target.value })
 
@@ -17,7 +17,7 @@ export class Portfolio extends Component {
                 fetch(`${url}/v1/transactions`, {
                     method: 'POST',
                     body: JSON.stringify({
-                        user_id: this.props.user.id,
+                        user_id: this.props.user.user_info.id,
                         ticker: this.state.ticker,
                         qty: this.state.qty,
                         user_close: currentClosePrice,
@@ -33,7 +33,8 @@ export class Portfolio extends Component {
                         if (data.errors) {
                             alert(data.errors)
                         } else {
-                            console.log("portfolio data", data)
+                            this.props.user.transactions.push(data)
+                            this.props.updateAccountBalance(data.qty, data.user_close)
                         }
                     })
             })
@@ -43,7 +44,7 @@ export class Portfolio extends Component {
         return (
             <div>
                 <h1>Portfolio</h1>
-                <p>Welcome {this.props.user.user_info.name}. Cash: {this.props.user.user_info.account_balance}</p>
+                <p>Welcome {this.props.user.user_info.name}. Cash: {this.props.userAccountBalance}</p>
                 <div className="login">
                     <form onSubmit={this.handleSubmit}>
                         <label>Ticker Symbol: </label>
