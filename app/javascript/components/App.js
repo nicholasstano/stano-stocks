@@ -22,7 +22,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    //autologin
+    //autologin feature if logout button is not pressed user will be logged in still.
     let token = localStorage.getItem('token')
     if (token) {
       fetch(`${url}/autologin`, {
@@ -33,7 +33,6 @@ class App extends React.Component {
       })
         .then(response => response.json())
         .then(data => {
-          console.log("APP DATA", data)
           this.setUser(data)
           this.props.history.push('/myportfolio')
         })
@@ -41,7 +40,7 @@ class App extends React.Component {
   }
 
   updateAccountBalance = (quantity, price) => {
-    console.log(quantity, price)
+    //used to render updated $Cash
     const stockAddTotalPrice = quantity * price
     this.setState({ userAccountBalance: this.state.userAccountBalance - stockAddTotalPrice })
   }

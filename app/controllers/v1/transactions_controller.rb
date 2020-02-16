@@ -19,8 +19,6 @@ class V1::TransactionsController < ApplicationController
             render json: transaction
         elsif balance_minus_stock_price < 0
             render json: {errors: "You do not have the appropriate balance to purchase stocks. Please add more money to your account."}
-        elsif transaction.qty.is_a?(Integer)
-            render json: {errors: "Enter a valid whole number"}
         end
     end 
 end
