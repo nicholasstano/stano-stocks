@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { url } from './config'
+import PortfolioCard from './PortfolioCard'
 
 export class Portfolio extends Component {
 
@@ -35,6 +36,7 @@ export class Portfolio extends Component {
                                 alert(data.errors)
                             } else {
                                 this.props.user.transactions.push(data)
+                                this.props.updatePortfolio()
                                 this.props.updateAccountBalance(data.qty, data.user_close)
                             }
                         })
@@ -50,17 +52,19 @@ export class Portfolio extends Component {
     }
 
     render() {
+        let portfolio = this.props.userPortfolio.map(p => <PortfolioCard p={p} key={p.ticker} />)
         return (
             <div>
                 <h1>Portfolio</h1>
-                <p>Welcome {this.props.user.user_info.name}. Cash: {this.props.userAccountBalance}</p>
+                {portfolio}
                 <div className="login">
+                    <p>Welcome {this.props.user.user_info.name}. Cash - ${this.props.userAccountBalance}</p>
                     <form onSubmit={this.handleSubmit}>
                         <label>Ticker Symbol: </label>
                         <input type="text" name="ticker" placeholder="ticker" value={this.state.ticker} onChange={this.handleChange} />
-                        <label>Qty (Positive Integers only) </label>
+                        <label>Qty </label>
                         <input type="text" name="qty" placeholder="qty" value={this.state.qty} onChange={this.handleChange} />
-                        <button>buy</button>
+                        <button>Buy</button>
                     </form>
                 </div>
             </div>
