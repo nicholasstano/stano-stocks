@@ -6,14 +6,14 @@ import { url } from './config'
 import './App.css'
 
 class App extends React.Component {
-
+  //state for current user for login purposes as well as their balances to be rendered pessimistically when a user buys a new stock. User portfolio to edit when stock prices change. 
   state = {
     user: null,
     userAccountBalance: null,
     userPortfolioBalance: null,
     userPortfolio: []
   }
-
+  //function to setUser. 
   setUser = user => {
     if (user == null) {
       localStorage.removeItem('token')
@@ -28,7 +28,7 @@ class App extends React.Component {
     //autologin feature if logout button is not pressed.
     this.autoLogin()
   }
-
+  //autologin function.
   autoLogin() {
     let token = localStorage.getItem('token')
     if (token) {
@@ -45,14 +45,13 @@ class App extends React.Component {
         })
     }
   }
-
   updateAccountBalance = (quantity, price) => {
     //used to render updated Account Balance and Portfolio Balance after purchasing stocks.
     const stockAddTotalPrice = quantity * price
     this.setState({ userAccountBalance: this.state.userAccountBalance - stockAddTotalPrice, userPortfolioBalance: parseFloat(this.state.userPortfolioBalance) + stockAddTotalPrice })
 
   }
-
+  //rerun login at times to refresh state after Intervals go off for prices of stock. 
   updatePortfolio = () => {
     this.autoLogin()
   }
@@ -62,6 +61,7 @@ class App extends React.Component {
       <div>
         <Switch>
           {this.state.user == null || this.state.user.errors ?
+            //redirect to home if there is no one logged in or if there was an error logged in.
             <Route path='/' render={() => {
               return (
                 <div>
@@ -69,6 +69,7 @@ class App extends React.Component {
                 </div>
               )
             }} /> :
+            //upon login redirect to portfolio page.
             <Route path='/myportfolio' render={() => {
               return (
                 <div>

@@ -3,7 +3,7 @@ import Portfolio from './Portfolio'
 import Transactions from './Transactions'
 
 export class UserContainer extends Component {
-
+    //State used to toggle between Portfolio or Transactions
     state = { portfolio: true }
 
     render() {

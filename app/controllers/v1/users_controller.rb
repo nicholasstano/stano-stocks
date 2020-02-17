@@ -5,7 +5,7 @@ class V1::UsersController < ApplicationController
         users = User.all 
         render json: users
     end
-
+    #creates a new user with a given account balance of 5000 and a portfolio balance that starts at 0. 
     def create
         user = User.new(email: params[:email], password: params[:password], name: params[:name], account_balance: 5000, portfolio_balance: 0)
         if user.save
@@ -14,7 +14,7 @@ class V1::UsersController < ApplicationController
           render json: {errors: user.errors.full_messages}
         end
     end
-
+    #Updates the users portfolio balance based on their current stock prices. 
     def update
         user = User.find(params[:id])
         bal = 0
