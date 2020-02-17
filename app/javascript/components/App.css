@@ -4,7 +4,6 @@
    text-align: center;
 }
 
-
 .login {
     display: grid;
     grid-template-rows: 50% 50%;
@@ -31,4 +30,57 @@
 
 .register h1 {
     text-align: center;
+}
+
+.userNavBar {
+    display: grid;
+    grid-template-columns: 64% 18% 18%;
+    text-align: right;
+}
+
+.userNavBarLink.nav-link.active {
+    text-decoration: underline;
+    color: blue;
+}
+
+.userContainer {
+    margin: 2%;
+    padding: 2%;
+}
+
+.portfolioAndBuyer {
+    margin: 2%;
+    padding: 2%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.portfolio {
+    border: solid;
+    border-left: black;
+    border-top: black;
+    border-bottom: black;
+    display: grid;
+    text-align:center;
+}
+
+.buyStockForm {
+    display: grid;
+    grid-template-rows: 50% 50%;
+    padding: 5%;
+    margin: 10%;
+    text-align: center;
+}
+
+.portfolioIndStock {
+    text-decoration: underline;
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.transactions {
+    margin: 2%;
+    padding: 2%;
+    display: grid;
+    text-align:center;
 }

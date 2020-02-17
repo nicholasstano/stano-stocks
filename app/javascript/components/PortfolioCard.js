@@ -65,7 +65,7 @@ export class PortfolioCard extends Component {
             color: this.state.color,
         };
         return (
-            <div style={divStyle}>
+            <div className="portfolioIndStock" style={divStyle}>
                 <p>{this.props.p.ticker} - {this.props.p.qty} Shares</p>
                 <p>{this.props.p.total_price}</p>
             </div>

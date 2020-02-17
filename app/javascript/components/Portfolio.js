@@ -4,7 +4,7 @@ import PortfolioCard from './PortfolioCard'
 
 export class Portfolio extends Component {
 
-    state = { ticker: "", qty: 0 }
+    state = { ticker: "", qty: "" }
 
     handleChange = e => this.setState({ [e.target.name]: e.target.value })
 
@@ -68,7 +68,7 @@ export class Portfolio extends Component {
                             })
                         this.setState({
                             ticker: '',
-                            qty: 0
+                            qty: ""
                         })
                     }
                 })
@@ -81,17 +81,17 @@ export class Portfolio extends Component {
     render() {
         let portfolio = this.props.user.portfolio.map(p => <PortfolioCard p={p} key={p.ticker} updatePortfolio={this.props.updatePortfolio} />)
         return (
-            <div>
-                <h1>Portfolio (${this.props.userPortfolioBalance})</h1>
-                {portfolio}
-                <div className="login">
-                    <p>Welcome {this.props.user.user_info.name}. Cash - ${this.props.userAccountBalance}</p>
+            <div className="portfolioAndBuyer">
+                <div className="portfolio">
+                    <h1>Portfolio (${this.props.userPortfolioBalance})</h1>
+                    {portfolio}
+                </div>
+                <div className="buyStockForm">
+                    <p>Cash - ${this.props.userAccountBalance}</p>
                     <form onSubmit={this.handleSubmit}>
-                        <label>Ticker Symbol: </label>
-                        <input type="text" name="ticker" placeholder="ticker" value={this.state.ticker} onChange={this.handleChange} />
-                        <label>Qty </label>
-                        <input type="text" name="qty" placeholder="qty" value={this.state.qty} onChange={this.handleChange} />
-                        <button>Buy</button>
+                        <input type="text" className="form-control" name="ticker" placeholder="ticker" value={this.state.ticker} onChange={this.handleChange} />
+                        <input type="text" className="form-control" name="qty" placeholder="qty" value={this.state.qty} onChange={this.handleChange} />
+                        <button className="btn btn-info">Buy</button>
                     </form>
                 </div>
             </div>
