@@ -9,18 +9,20 @@ class App extends React.Component {
   state = {
     user: null,
     userAccountBalance: null,
+    userPortfolioBalance: null,
     userPortfolio: []
   }
 
   setUser = user => {
     if (user == null) {
       localStorage.removeItem('token')
-      this.setState({ user: null, userAccountBalance: null, userPortfolio: [] })
+      this.setState({ user: null, userAccountBalance: null, userPortfolio: [], userPortfolioBalance: null })
     }
     else {
-      this.setState({ user: user, userAccountBalance: user.user_info.account_balance, userPortfolio: user.portfolio })
+      this.setState({ user: user, userAccountBalance: user.user_info.account_balance, userPortfolio: user.portfolio, userPortfolioBalance: this.updatePortfolioBalance() })
     }
   }
+
 
 
   componentDidMount() {
@@ -53,6 +55,17 @@ class App extends React.Component {
 
   updatePortfolio = () => {
     this.autoLogin()
+    this.setState({ userPortfolioBalance: this.updatePortfolioBalance() })
+  }
+
+  updatePortfolioBalance = () => {
+    let accountPerformance = 0
+    if (this.state.user) {
+      for (let stock of this.state.user.portfolio) {
+        accountPerformance = accountPerformance + parseFloat(stock.total_price)
+      }
+    }
+    return accountPerformance
   }
 
   render() {
@@ -70,7 +83,7 @@ class App extends React.Component {
             <Route path='/myportfolio' render={() => {
               return (
                 <div>
-                  <UserContainer user={this.state.user} setUser={this.setUser} userAccountBalance={this.state.userAccountBalance} updateAccountBalance={this.updateAccountBalance} updatePortfolio={this.updatePortfolio} userPortfolio={this.state.userPortfolio} />
+                  <UserContainer user={this.state.user} setUser={this.setUser} userAccountBalance={this.state.userAccountBalance} updateAccountBalance={this.updateAccountBalance} updatePortfolio={this.updatePortfolio} userPortfolio={this.state.userPortfolio} userPortfolioBalance={this.state.userPortfolioBalance} />
                 </div>
               )
             }} />

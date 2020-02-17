@@ -15,7 +15,7 @@ export class UserContainer extends Component {
                 <p>|</p>
                 <p onClick={() => this.setState({ portfolio: false })}>Transactions</p>
                 {
-                    this.state.portfolio ? <Portfolio user={this.props.user} userAccountBalance={this.props.userAccountBalance} updateAccountBalance={this.props.updateAccountBalance} updatePortfolio={this.props.updatePortfolio} userPortfolio={this.props.userPortfolio} /> :
+                    this.state.portfolio ? <Portfolio user={this.props.user} userAccountBalance={this.props.userAccountBalance} updateAccountBalance={this.props.updateAccountBalance} updatePortfolio={this.props.updatePortfolio} userPortfolio={this.props.userPortfolio} userPortfolioBalance={this.props.userPortfolioBalance} /> :
                         <Transactions user={this.props.user} />
                 }
             </div >

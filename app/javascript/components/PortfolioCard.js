@@ -36,8 +36,8 @@ export class PortfolioCard extends Component {
     }
 
     compareCloseAndCurrentClose = () => {
-        fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${this.props.p.ticker}&interval=5min&apikey=URO5UT82IEAW1NHV`)
-            // fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=MSFT&interval=5min&apikey=demo`)
+        // fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${this.props.p.ticker}&interval=5min&apikey=URO5UT82IEAW1NHV`)
+        fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=MSFT&interval=5min&apikey=demo`)
             .then(res => res.json())
             .then(data => {
                 let lastRefreshed = data['Meta Data']['3. Last Refreshed']
@@ -61,7 +61,6 @@ export class PortfolioCard extends Component {
     }
 
     render() {
-        console.log(this.props.p)
         const divStyle = {
             color: this.state.color,
         };
