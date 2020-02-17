@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_17_152030) do
+ActiveRecord::Schema.define(version: 2020_02_17_190937) do
 
   create_table "portfolios", force: :cascade do |t|
     t.string "ticker"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 2020_02_17_152030) do
     t.decimal "account_balance"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "portfolio_balance"
   end
 
 end

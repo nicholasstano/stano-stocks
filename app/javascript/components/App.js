@@ -19,11 +19,9 @@ class App extends React.Component {
       this.setState({ user: null, userAccountBalance: null, userPortfolio: [], userPortfolioBalance: null })
     }
     else {
-      this.setState({ user: user, userAccountBalance: user.user_info.account_balance, userPortfolio: user.portfolio, userPortfolioBalance: this.updatePortfolioBalance() })
+      this.setState({ user: user, userAccountBalance: user.user_info.account_balance, userPortfolio: user.portfolio, userPortfolioBalance: user.user_info.portfolio_balance })
     }
   }
-
-
 
   componentDidMount() {
     //autologin feature if logout button is not pressed.
@@ -48,24 +46,15 @@ class App extends React.Component {
   }
 
   updateAccountBalance = (quantity, price) => {
-    //used to render updated $Cash
+    //used to render updated Account Balance to Spend
     const stockAddTotalPrice = quantity * price
-    this.setState({ userAccountBalance: this.state.userAccountBalance - stockAddTotalPrice })
+
+    this.setState({ userAccountBalance: this.state.userAccountBalance - stockAddTotalPrice, userPortfolioBalance: parseFloat(this.state.userPortfolioBalance) + stockAddTotalPrice })
+
   }
 
   updatePortfolio = () => {
     this.autoLogin()
-    this.setState({ userPortfolioBalance: this.updatePortfolioBalance() })
-  }
-
-  updatePortfolioBalance = () => {
-    let accountPerformance = 0
-    if (this.state.user) {
-      for (let stock of this.state.user.portfolio) {
-        accountPerformance = accountPerformance + parseFloat(stock.total_price)
-      }
-    }
-    return accountPerformance
   }
 
   render() {
@@ -83,7 +72,7 @@ class App extends React.Component {
             <Route path='/myportfolio' render={() => {
               return (
                 <div>
-                  <UserContainer user={this.state.user} setUser={this.setUser} userAccountBalance={this.state.userAccountBalance} updateAccountBalance={this.updateAccountBalance} updatePortfolio={this.updatePortfolio} userPortfolio={this.state.userPortfolio} userPortfolioBalance={this.state.userPortfolioBalance} />
+                  <UserContainer user={this.state.user} setUser={this.setUser} userAccountBalance={this.state.userAccountBalance} updateAccountBalance={this.updateAccountBalance} updatePortfolio={this.updatePortfolio} userPortfolio={this.state.userPortfolio} userPortfolioBalance={this.state.userPortfolioBalance} updatePortfolioBalance={this.updatePortfolioBalance} />
                 </div>
               )
             }} />

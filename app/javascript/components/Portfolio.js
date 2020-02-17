@@ -8,6 +8,27 @@ export class Portfolio extends Component {
 
     handleChange = e => this.setState({ [e.target.name]: e.target.value })
 
+    componentDidMount() {
+
+    }
+
+    updatePortfolioBalance = () => {
+        fetch(`${url}/v1/users/${this.props.user.user_info.id}`, {
+            method: 'PATCH',
+            headers: {
+                'content-type': 'application/json',
+                'accept': 'application/json'
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                this.props.setUser(data.user)
+            })
+    }
+
+
+
+
     handleSubmit = e => {
         e.preventDefault()
         if (Number.isInteger(parseFloat(this.state.qty)) && parseInt(this.state.qty) > 0) {
@@ -41,6 +62,8 @@ export class Portfolio extends Component {
                                     alert(data.errors)
                                 } else {
                                     this.props.user.transactions.push(data)
+                                    this.updatePortfolioBalance()
+                                    this.props.updatePortfolio()
                                     this.props.updateAccountBalance(data.qty, data.user_close)
                                 }
                             })
