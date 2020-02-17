@@ -22,6 +22,24 @@ class App extends React.Component {
     }
   }
 
+  updateTransactions = () => {
+    console.log(this.state.user.transactions)
+    fetch(`${url}/v1/users/${this.state.user.user_info.id}`, {
+      method: 'PATCH',
+      body: JSON.stringify({
+
+      }),
+      headers: {
+        'content-type': 'application/json',
+        'accept': 'application/json'
+      }
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log("data", data)
+      })
+  }
+
   componentDidMount() {
     //autologin feature if logout button is not pressed.
     this.autoLogin()
@@ -39,6 +57,7 @@ class App extends React.Component {
         .then(response => response.json())
         .then(data => {
           this.setUser(data)
+          this.updateTransactions()
           this.props.history.push('/myportfolio')
         })
     }
@@ -54,16 +73,7 @@ class App extends React.Component {
     this.autoLogin()
   }
 
-  // updateGameCard = (data) => {
-  //   const newGameWeek = data.game
-  //   let updatedWeek = this.state.selectedWeek.week_games.map(weekGame => weekGame.game_id === newGameWeek.game_id ? newGameWeek : weekGame)
-  //   const newUpdatedWeek = { ...this.state.selectedWeek, week_games: updatedWeek }
-  //   const newWeeklyGames = this.state.weeklyGames.map(wg => wg.id === this.state.selectedWeek.id ? newUpdatedWeek : wg)
-  //   this.setState({ selectedWeek: newUpdatedWeek, weeklyGames: newWeeklyGames })
-  // }
-
   render() {
-    console.log("APPSTATE", this.state)
     return (
       <div>
         <Switch>

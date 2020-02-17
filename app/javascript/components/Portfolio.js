@@ -11,44 +11,58 @@ export class Portfolio extends Component {
     handleSubmit = e => {
         e.preventDefault()
         if (Number.isInteger(parseFloat(this.state.qty)) && parseInt(this.state.qty) > 0) {
-            fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=MSFT&interval=5min&apikey=demo`)
+            fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${this.state.ticker}&interval=5min&apikey=URO5UT82IEAW1NHV
+            `)
                 .then(res => res.json())
                 .then(data => {
-                    let lastRefreshed = data['Meta Data']['3. Last Refreshed']
-                    let currentClosePrice = data['Time Series (5min)'][lastRefreshed]['4. close']
-                    fetch(`${url}/v1/transactions`, {
-                        method: 'POST',
-                        body: JSON.stringify({
-                            user_id: this.props.user.user_info.id,
-                            ticker: this.state.ticker,
-                            qty: this.state.qty,
-                            user_close: currentClosePrice,
-                            current_close: currentClosePrice
-                        }),
-                        headers: {
-                            'content-type': 'application/json',
-                            'accept': 'application/json'
-                        }
-                    })
-                        .then(res => res.json())
-                        .then(data => {
-                            if (data.errors) {
-                                alert(data.errors)
-                            } else {
-                                this.props.user.transactions.push(data)
-                                this.props.updatePortfolio()
-                                this.props.updateAccountBalance(data.qty, data.user_close)
+                    if (data.errors) {
+                        alert("Invalid ticker symbol, Please enter a valid ticker symbol.")
+                    }
+                    else {
+                        let lastRefreshed = data['Meta Data']['3. Last Refreshed']
+                        let currentClosePrice = data['Time Series (5min)'][lastRefreshed]['4. close']
+                        fetch(`${url}/v1/transactions`, {
+                            method: 'POST',
+                            body: JSON.stringify({
+                                user_id: this.props.user.user_info.id,
+                                ticker: this.state.ticker.toUpperCase(),
+                                qty: this.state.qty,
+                                user_close: currentClosePrice,
+                                current_close: currentClosePrice
+                            }),
+                            headers: {
+                                'content-type': 'application/json',
+                                'accept': 'application/json'
                             }
                         })
-                    this.setState({
-                        ticker: '',
-                        qty: 0
-                    })
+                            .then(res => res.json())
+                            .then(data => {
+                                if (data.errors) {
+                                    alert(data.errors)
+                                } else {
+                                    this.props.user.transactions.push(data)
+                                    this.props.updatePortfolio()
+                                    this.props.updateAccountBalance(data.qty, data.user_close)
+                                }
+                            })
+                        this.setState({
+                            ticker: '',
+                            qty: 0
+                        })
+                    }
                 })
         }
         else {
             alert("Please enter a valid whole number")
         }
+    }
+
+    updatePortfolioClose = () => {
+        fetch(`${url}/v1/users/${this.props.user.user_info.id}`)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+            })
     }
 
     render() {

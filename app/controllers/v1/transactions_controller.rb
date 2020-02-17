@@ -21,4 +21,12 @@ class V1::TransactionsController < ApplicationController
             render json: {errors: "You do not have the appropriate balance to purchase stocks. Please add more money to your account."}
         end
     end 
+
+    def update 
+        transaction = Transaction.find(id)
+        
+    end
+
+
+
 end

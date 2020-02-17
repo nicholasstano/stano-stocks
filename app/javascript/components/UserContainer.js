@@ -6,8 +6,6 @@ export class UserContainer extends Component {
 
     state = { portfolio: true }
 
-    // https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=GOOG&interval=5min&apikey=URO5UT82IEAW1NHV
-
     render() {
         return (
             <div>
