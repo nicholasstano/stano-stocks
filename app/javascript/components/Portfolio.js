@@ -41,6 +41,7 @@ export class Portfolio extends Component {
                                     alert(data.errors)
                                 } else {
                                     this.props.user.transactions.push(data)
+                                    this.props.updatePortfolio()
                                     this.props.updateAccountBalance(data.qty, data.user_close)
                                 }
                             })
@@ -57,7 +58,7 @@ export class Portfolio extends Component {
     }
 
     render() {
-        let portfolio = this.props.userPortfolio.map(p => <PortfolioCard p={p} key={p.ticker} />)
+        let portfolio = this.props.user.portfolio.map(p => <PortfolioCard p={p} key={p.ticker} updatePortfolio={this.props.updatePortfolio} />)
         return (
             <div>
                 <h1>Portfolio</h1>

@@ -22,23 +22,6 @@ class App extends React.Component {
     }
   }
 
-  updateTransactions = () => {
-    console.log(this.state.user.transactions)
-    fetch(`${url}/v1/users/${this.state.user.user_info.id}`, {
-      method: 'PATCH',
-      body: JSON.stringify({
-
-      }),
-      headers: {
-        'content-type': 'application/json',
-        'accept': 'application/json'
-      }
-    })
-      .then(res => res.json())
-      .then(data => {
-        console.log("data", data)
-      })
-  }
 
   componentDidMount() {
     //autologin feature if logout button is not pressed.
@@ -57,7 +40,6 @@ class App extends React.Component {
         .then(response => response.json())
         .then(data => {
           this.setUser(data)
-          this.updateTransactions()
           this.props.history.push('/myportfolio')
         })
     }
