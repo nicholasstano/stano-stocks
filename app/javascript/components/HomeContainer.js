@@ -12,11 +12,12 @@ export class HomeContainer extends Component {
 
     render() {
         return (
-            <div>
+            <div className="homeContainer">
                 <h1>Welcome</h1>
-                {this.state.login ? <button onClick={this.toggleLoginRegister}>Click to Register</button> : <button onClick={this.toggleLoginRegister}>Have an account already? Click to Login</button>}
-                {this.state.login ? <Login user={this.props.user} setUser={this.props.setUser} /> : <Register user={this.props.user} setUser={this.props.setUser} />}
                 <p>Login to view your stock portfolio or register to create your account.</p>
+                <p>Disclaimer: The Alpha Vantage free API key allows users to make 5 requests per minute.</p>
+                {this.state.login ? <button className="btn btn-success" onClick={this.toggleLoginRegister}>Click to Register</button> : <button className="btn btn-primary" onClick={this.toggleLoginRegister}>Have an account already? Click to Login</button>}
+                {this.state.login ? <Login user={this.props.user} setUser={this.props.setUser} /> : <Register user={this.props.user} setUser={this.props.setUser} />}
             </div>
         )
     }

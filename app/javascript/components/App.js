@@ -3,6 +3,7 @@ import { Switch, Route, withRouter } from 'react-router-dom'
 import HomeContainer from './HomeContainer'
 import UserContainer from './UserContainer'
 import { url } from './config'
+import './App.css'
 
 class App extends React.Component {
 
@@ -46,9 +47,8 @@ class App extends React.Component {
   }
 
   updateAccountBalance = (quantity, price) => {
-    //used to render updated Account Balance to Spend
+    //used to render updated Account Balance and Portfolio Balance after purchasing stocks.
     const stockAddTotalPrice = quantity * price
-
     this.setState({ userAccountBalance: this.state.userAccountBalance - stockAddTotalPrice, userPortfolioBalance: parseFloat(this.state.userPortfolioBalance) + stockAddTotalPrice })
 
   }
@@ -72,7 +72,7 @@ class App extends React.Component {
             <Route path='/myportfolio' render={() => {
               return (
                 <div>
-                  <UserContainer user={this.state.user} setUser={this.setUser} userAccountBalance={this.state.userAccountBalance} updateAccountBalance={this.updateAccountBalance} updatePortfolio={this.updatePortfolio} userPortfolio={this.state.userPortfolio} userPortfolioBalance={this.state.userPortfolioBalance} updatePortfolioBalance={this.updatePortfolioBalance} />
+                  <UserContainer user={this.state.user} setUser={this.setUser} userAccountBalance={this.state.userAccountBalance} updateAccountBalance={this.updateAccountBalance} updatePortfolio={this.updatePortfolio} userPortfolio={this.state.userPortfolio} userPortfolioBalance={this.state.userPortfolioBalance} />
                 </div>
               )
             }} />

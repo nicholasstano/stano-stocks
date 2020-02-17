@@ -1,0 +1,34 @@
+.homeContainer {
+   padding: 2%;
+   margin: 2%;
+   text-align: center;
+}
+
+
+.login {
+    display: grid;
+    grid-template-rows: 50% 50%;
+    border: solid;
+    border-color: black;
+    border-radius: 15px;
+    padding: 5%;
+    margin: 10%;
+}
+
+.login h1 {
+    text-align: center;
+}
+
+.register {
+    display: grid;
+    grid-template-rows: 50% 50%;
+    border: solid;
+    border-color: black;
+    border-radius: 15px;
+    padding: 5%;
+    margin: 10%;
+}
+
+.register h1 {
+    text-align: center;
+}

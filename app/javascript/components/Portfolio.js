@@ -9,7 +9,9 @@ export class Portfolio extends Component {
     handleChange = e => this.setState({ [e.target.name]: e.target.value })
 
     componentDidMount() {
-
+        this.updatePortfolioBalance()
+        //update portfolio balance every five minutes to sync up with API calls on the Portfolio Cards.
+        setInterval(this.updatePortfolioBalance, 5 * 60000);
     }
 
     updatePortfolioBalance = () => {
@@ -25,9 +27,6 @@ export class Portfolio extends Component {
                 this.props.setUser(data.user)
             })
     }
-
-
-
 
     handleSubmit = e => {
         e.preventDefault()

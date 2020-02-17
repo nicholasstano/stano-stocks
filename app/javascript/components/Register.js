@@ -36,16 +36,13 @@ export class RegisterContainer extends Component {
     }
     render() {
         return (
-            <div className="login">
+            <div className="register">
                 <h1>Register</h1>
                 <form onSubmit={this.handleSubmit}>
-                    <label>Email: </label>
-                    <input type="text" name="email" placeholder="email" value={this.state.email} onChange={this.handleChange} />
-                    <label>Name: </label>
-                    <input type="text" name="name" placeholder="name" value={this.state.name} onChange={this.handleChange} />
-                    <label>Password: </label>
-                    <input type="password" name="password" placeholder="password" value={this.state.password} onChange={this.handleChange} />
-                    <button>register</button>
+                    <input type="email" className="form-control" name="email" placeholder="email" value={this.state.email} onChange={this.handleChange} />
+                    <input type="text" className="form-control" name="name" placeholder="name" value={this.state.name} onChange={this.handleChange} />
+                    <input type="password" className="form-control" name="password" placeholder="password" value={this.state.password} onChange={this.handleChange} />
+                    <button className="btn btn-success">Register</button>
                 </form>
             </div>
         )

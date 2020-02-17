@@ -38,14 +38,15 @@ export class Login extends Component {
     render() {
         return (
             <div className="login">
-                <h1>Login</h1>
+                <h1>Sign IN</h1>
                 <form onSubmit={this.handleSubmit}>
-                    <label>Email: </label>
-                    <input type="text" name="email" placeholder="email" value={this.state.email} onChange={this.handleChange} />
-                    <label>Password: </label>
-                    <input type="password" name="password" placeholder="password" value={this.state.password} onChange={this.handleChange} />
-                    <button>login</button>
+                    <div className="loginInputs form-group">
+                        <input type="email" className="form-control" name="email" placeholder="email" value={this.state.email} onChange={this.handleChange} />
+                        <input type="password" className="form-control" name="password" placeholder="password" value={this.state.password} onChange={this.handleChange} />
+                        <button className="btn btn-primary">Sign In</button>
+                    </div>
                 </form>
+
             </div>
         )
     }
