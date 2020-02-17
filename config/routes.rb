@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     post '/signup', to: 'users#create'
     resources :users
     resources :transactions
+    resources :portfolios
   end
   
   get '*page', to: 'static#index', constraints: ->(req) do

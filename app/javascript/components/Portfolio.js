@@ -41,7 +41,6 @@ export class Portfolio extends Component {
                                     alert(data.errors)
                                 } else {
                                     this.props.user.transactions.push(data)
-                                    this.props.updatePortfolio()
                                     this.props.updateAccountBalance(data.qty, data.user_close)
                                 }
                             })
@@ -55,14 +54,6 @@ export class Portfolio extends Component {
         else {
             alert("Please enter a valid whole number")
         }
-    }
-
-    updatePortfolioClose = () => {
-        fetch(`${url}/v1/users/${this.props.user.user_info.id}`)
-            .then(res => res.json())
-            .then(data => {
-                console.log(data)
-            })
     }
 
     render() {

@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_15_165552) do
+ActiveRecord::Schema.define(version: 2020_02_17_152030) do
+
+  create_table "portfolios", force: :cascade do |t|
+    t.string "ticker"
+    t.integer "qty"
+    t.decimal "current_close"
+    t.decimal "total_price"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "transactions", force: :cascade do |t|
     t.string "ticker"

@@ -14,10 +14,4 @@ class V1::UsersController < ApplicationController
           render json: {errors: user.errors.full_messages}
         end
     end
-
-    def update
-        user = User.find(params[:id])
-        
-        render json: {user: user.user_information, token: JWT.encode({userId: user.id}, 'secret')}
-    end
 end
