@@ -1,24 +1,3 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+When I deployed my APP everything was working except the CSS. In attempting to get that to work I ran a command about the ENV. Afterwards I could no longer access the database, create new users, login or anything. Frustrating as I put in 9 hours Sunday and Monday getting this to a workable place. 
